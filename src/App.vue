@@ -2,7 +2,8 @@
   <div id="app">
     <GChart
       type="Timeline"
-      :settings="{ packages: ['timeline'] }"
+      :settings="{ packages: ['timeline'],
+      language: 'ko' }"
       :data="timelineData"
       :options="timelineOptions"
     />
@@ -33,26 +34,28 @@ export default {
   },
   
   mounted: function () {
-   for(let i = 0; i < timelineJson.timelineData.length; ++i){
+   for(let i = 0; i < timelineJson.items.length; ++i){
      //start
-     let startYear = parseInt(timelineJson.timelineData[i].start / 10000);
+     let timelineStart = parseInt(timelineJson.items[i].start);
+     let startYear = parseInt(timelineStart / 10000);
      //console.log(startYear);
-     let startMonth = parseInt((timelineJson.timelineData[i].start % 10000) / 100);
+     let startMonth = parseInt((timelineStart % 10000) / 100);
      //console.log(startMonth);
-     let startDate = parseInt((timelineJson.timelineData[i].start % 100));
+     let startDate = parseInt((timelineStart % 100));
      //console.log(startDate);
-     timelineJson.timelineData[i].start = new Date(startYear, startMonth, startDate);
+     timelineJson.items[i].start = new Date(startYear, startMonth, startDate);
      //end
-     let endYear = parseInt(timelineJson.timelineData[i].end / 10000);
+     let timelineEnd = parseInt(timelineJson.items[i].end);
+     let endYear = parseInt(timelineEnd / 10000);
      //console.log(endYear);
-     let endMonth = parseInt((timelineJson.timelineData[i].end % 10000) / 100);
+     let endMonth = parseInt((timelineEnd % 10000) / 100);
      //console.log(endMonth);
-     let endDate = parseInt(timelineJson.timelineData[i].end % 100);
+     let endDate = parseInt(timelineEnd % 100);
      //console.log(endDate);
-     timelineJson.timelineData[i].end = new Date(endYear, endMonth, endDate);
+     timelineJson.items[i].end = new Date(endYear, endMonth, endDate);
 
-     this.timelineData.push([timelineJson.timelineData[i].name, timelineJson.timelineData[i].labelname, 
-     timelineJson.timelineData[i].start, timelineJson.timelineData[i].end])
+     this.timelineData.push([timelineJson.items[i].title, timelineJson.items[i].labelname, 
+     timelineJson.items[i].start, timelineJson.items[i].end])
    }
   }
 };
