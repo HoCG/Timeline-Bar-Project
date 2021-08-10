@@ -1,4 +1,5 @@
 {
+    "applicatid" : "",
     "items": [
         {
             "title": "학력",
@@ -16,10 +17,25 @@
             "start": "20220316",
             "end": "20240316"
         }, {
+            "title": "학력",
+            "labelname": "하버드대학교",
+            "start": "20240316",
+            "end": "20290316"
+        }, {
             "title": "경력",
             "labelname": "이수시스템",
             "start": "20210316",
             "end": "20220316"
+        }, {
+            "title": "경력",
+            "labelname": "삼성",
+            "start": "20220316",
+            "end": "20250316"
+        }, {
+            "title": "경력",
+            "labelname": "엘지",
+            "start": "20250316",
+            "end": "20290316"
         }, {
             "title": "교육연수",
             "labelname": "군대",
@@ -28,8 +44,38 @@
         }, {
             "title": "교육연수",
             "labelname": "키움증권",
-            "start": "20220214",
+            "start": "20181018",
+            "end": "20230210"
+        }, {
+            "title": "교육연수",
+            "labelname": "YAPP",
+            "start": "20230214",
+            "end": "20231016"
+        }, {
+            "title": "교육연수",
+            "labelname": "The Creater",
+            "start": "20231016",
             "end": "20240316"
+        }, {
+            "title": "교육연수",
+            "labelname": "Ye",
+            "start": "20240316",
+            "end": "20250316"
+        }, {
+            "title": "교육연수",
+            "labelname": "You Know What",
+            "start": "20250316",
+            "end": "20270316"
+        }, {
+            "title": "교육연수",
+            "labelname": "NoNo",
+            "start": "20270316",
+            "end": "20280316"
+        }, {
+            "title": "교육연수",
+            "labelname": "World is yours",
+            "start": "20280316",
+            "end": "20320316"
         }
     ]
 }
