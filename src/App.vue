@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <GChart
+      id="Timeline"
       type="Timeline"
       :settings="{ packages: ['timeline'],
       language: 'ko' }"
@@ -9,7 +10,6 @@
     />
   </div>
 </template>
-
 <script>
 import { GChart } from "vue-google-charts";
 import timelineJson from './assets/timelineTest.json'
@@ -32,11 +32,21 @@ export default {
       ]
       ,
       timelineOptions: {
+        fontSize: 10,
         timeline: {
           rowLabelStyle: { fontName: "Ariel"},
-          colorByRowLabel: true
+          colorByRowLabel: true,
+          barLabelStyle: {
+            fontSize: 10
+          }
         },
-        tooltip: { textStyle: { fontName: "Ariel", fontSize: 14} },
+        tooltip: {
+          textStyle: 
+          { 
+            fontName: "Ariel", 
+            fontSize: 14
+          } 
+        }
       },
     };
   },
@@ -48,13 +58,14 @@ export default {
     let title_Number_In_One_Line = []; //하나의 라인에 몇개의 라벨이 들어있는지를 판별.
     let title_Number_In_One_Line_Current = []; //현재 이라인에 라벨의 위치
 
-    this.Initialization_Of_title_Number_In_One_Line(title_Number_In_One_Line, title_Number_In_One_Line_Current);
+    this.Init_Of_title_Number_In_One_Line(title_Number_In_One_Line, title_Number_In_One_Line_Current);
     this.titleArray_Pusher(titleArray, title_Number_In_One_Line);
     this.Input_Into_timelineData(titleArray, title_of_Color, title_Number_In_One_Line, title_Number_In_One_Line_Current);
+    //var context = document.getElementById("Timeline");
   },
 
   methods: {
-    Initialization_Of_title_Number_In_One_Line(titleNumberInOneLine, title_Number_In_One_Line_Current){
+    Init_Of_title_Number_In_One_Line(titleNumberInOneLine, title_Number_In_One_Line_Current){
       for(let i = 0; i < timelineJson.items.length; ++i){
         titleNumberInOneLine[i] = 0;
         title_Number_In_One_Line_Current[i] = 0;
@@ -72,6 +83,8 @@ export default {
     },
 
     Input_Into_timelineData(titleArray, title_of_Color, title_Number_In_One_Line, title_Number_In_One_Line_Current){
+      let maxYear = 0;
+      let minYear = 1000000;
       let startYear;
       let startMonth;
       let startDate;
@@ -82,12 +95,18 @@ export default {
       //start
         let timelineStart = parseInt(timelineJson.items[i].start);
         [startYear, startMonth, startDate] = this.Make_YearMonthDate(timelineStart);
+        if(startYear < minYear){
+          minYear = startYear;
+        }
         //console.log(startDate);
         timelineJson.items[i].start = new Date(startYear, startMonth, startDate);
 
         //end
         let timelineEnd = parseInt(timelineJson.items[i].end);
         [endYear, endMonth, endDate] = this.Make_YearMonthDate(timelineEnd);
+        if(endYear > maxYear){
+          maxYear = endYear;
+        }
         timelineJson.items[i].end = new Date(endYear, endMonth, endDate);
 
         //console.log(endDate);
@@ -101,6 +120,7 @@ export default {
           , timelineJson.items[i].end ]
         );
       }
+      document.getElementById("app").style.minWidth = String(45 + 50*(maxYear - (minYear - 1))) + "px";
     },
 
     RGB_Calculater([Red, Green, Blue], title_Number_In_One_Line, title_Number_In_One_Line_Current){
@@ -126,13 +146,15 @@ export default {
 };
 </script>
 <style>
-text{
-  font-weight: bold !important;
-  font-style: inherit !important;
-}
-rect{
-  stroke-width: 1; /*!important;*/
-  stroke: black; /*!important;*/
-}
+    #app {
+      font-weight: bold !important;
+      font-style: inherit !important;
+    }
+    rect {
+        stroke-width: 0.5;
+        /*!important;*/
+        stroke: black;
+        /*!important;*/
+    }
 </style>
 
